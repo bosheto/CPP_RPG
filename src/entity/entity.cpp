@@ -1,6 +1,6 @@
 #include "entity.hpp"
 #include <iostream> 
-
+#include <cmath>
 Entity::Entity(int spriteX, int spriteY, int posX, int posY, Texture &texture){
     this->position.x = posX * SPRITE_SIZE;
     this->position.y = posY * SPRITE_SIZE;
@@ -47,7 +47,7 @@ Vector2 Entity::GetPosition(){
 
 void Entity::Move(std::list<Vector2> targetPositionList){
     if(!isMoving){
-            this->isMoving = true;
+        this->isMoving = true;
         this->moveList = targetPositionList;
         this->moveTargetPosition = targetPositionList.front();
     }
@@ -55,8 +55,8 @@ void Entity::Move(std::list<Vector2> targetPositionList){
 
 void Entity::move(){
     Vector2 direction = Vector2Normalize(Vector2Subtract(this->moveTargetPosition, this->position)); 
-
-    
+    direction.x = std::round(direction.x);
+    direction.y = std::round(direction.y);
     if(Vector2Equals(this->position, moveTargetPosition)){
         if(this->moveList.size() == 0){
             this->isMoving = false;
