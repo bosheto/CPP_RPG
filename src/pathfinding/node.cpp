@@ -2,10 +2,10 @@
 
 Node::Node(){
     this->isWalkable = false;
-    this->position = Vector2{-1,-1};
+    
 }
 
-Node::Node(bool isWalkable, Vector2 position){
+Node::Node(bool isWalkable, const Vector2 position){
     this->isWalkable = isWalkable;
     this->position = position;
 }

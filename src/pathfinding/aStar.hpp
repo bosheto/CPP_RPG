@@ -9,10 +9,10 @@
 class A_Star{
 
     public:
-        A_Star(World* world);
+        A_Star(World *world);
         
         // Methods
-        std::list<Vector2> FindPath(Vector2 startPosition, Vector2 targetPosition);
+        std::list<Vector2> FindPath(const Vector2 startPosition, const Vector2 targetPosition);
 
     private:
         // Fields

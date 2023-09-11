@@ -18,6 +18,7 @@ void Grid::InitGrid(){
 
 Node Grid::CreateNodeFromVector(Vector2 position){
     Node node = Node();
+    node.position = position;
     node.gridX = position.x;
     node.gridY = position.y;
     node.isWalkable = !this->world->GetTile(position).isSolid;
@@ -31,7 +32,7 @@ Node Grid::GetNode(Vector2  position){
 }
 
 bool Grid::containsPosition(Vector2 position){
-    if(position.x < 0 || position.x >= nodes[0].size())
+    if(position.x < 0 || position.x >= nodes[0].size() || position.y < 0 || position.y > nodes.size())
         return false;
-    return position.y > 0 && position.y < nodes.size();
+    return true;
 }

@@ -46,9 +46,11 @@ Vector2 Entity::GetPosition(){
 }
 
 void Entity::Move(std::list<Vector2> targetPositionList){
-    this->isMoving = true;
-    this->moveList = targetPositionList;
-    this->moveTargetPosition = targetPositionList.front();
+    if(!isMoving){
+            this->isMoving = true;
+        this->moveList = targetPositionList;
+        this->moveTargetPosition = targetPositionList.front();
+    }
 }
 
 void Entity::move(){

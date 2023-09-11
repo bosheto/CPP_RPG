@@ -45,22 +45,25 @@ int main(int argc, char ** argv){
     Vector2 pos;
 
     std::list<Vector2> moveList;
-    moveList.push_back(Vector2{0,32});
-    moveList.push_back(Vector2{32,32});
-    moveList.push_back(Vector2{64,32});
-    moveList.push_back(Vector2{64,64});
+    // moveList.push_back(Vector2{0,32});
+    // moveList.push_back(Vector2{32,32});
+    // moveList.push_back(Vector2{64,32});
+    // moveList.push_back(Vector2{64,64});
     
     A_Star aStar = A_Star(&world);
-
 
 
     while(!WindowShouldClose()){
         
         if(IsKeyDown(KEY_A)) {
-            std::list<Vector2> t = aStar.FindPath(Vector2{0,0}, Vector2{0,1});
-            player.Move(t);
+            moveList = aStar.FindPath(Vector2{0,0}, Vector2{2,2});
+            player.Move(moveList);
         }
         if(IsKeyDown(KEY_B)) player.SetPosition(0,0);
+
+        // if(moveList.size() > 0){
+        //     player.Move(moveList);
+        // }
         BeginDrawing();
             ClearBackground(BLACK);
             world.Draw();
