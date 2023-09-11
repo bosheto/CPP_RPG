@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <iostream>
+#include <cmath>
 
 int main(int argc, char ** argv){
 
@@ -60,6 +61,19 @@ int main(int argc, char ** argv){
             player.Move(moveList);
         }
         if(IsKeyDown(KEY_B)) player.SetPosition(0,0);
+
+        if(IsMouseButtonReleased(0)){
+            Vector2 mousePosition = GetMousePosition();
+            int mouseX = int(mousePosition.x) / SPRITE_SIZE;
+            int mouseY = int(mousePosition.y) / SPRITE_SIZE;
+            
+            int playerX = int(player.GetPosition().x) / SPRITE_SIZE;
+            int playerY = int(player.GetPosition().y) / SPRITE_SIZE;
+            
+            moveList = aStar.FindPath(Vector2{float(playerX), float(playerY)}, Vector2{float(mouseX), float(mouseY)});
+            player.Move(moveList);
+
+        }
 
         // if(moveList.size() > 0){
         //     player.Move(moveList);
