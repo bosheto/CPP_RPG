@@ -1,7 +1,6 @@
 #include "entity.hpp"
-#include <iostream> 
-#include <cmath>
-Entity::Entity(int spriteX, int spriteY, int posX, int posY, Texture &texture){
+
+Entity::Entity(int spriteX, int spriteY, int posX, int posY, Texture &texture, World *world) : pathEngine(world){
     this->position.x = posX * SPRITE_SIZE;
     this->position.y = posY * SPRITE_SIZE;
     this->spriteRectangle.height = SPRITE_SIZE;
@@ -9,6 +8,7 @@ Entity::Entity(int spriteX, int spriteY, int posX, int posY, Texture &texture){
     this->spriteRectangle.x = spriteX * SPRITE_SIZE;
     this->spriteRectangle.y = spriteY * SPRITE_SIZE;
     this->texture = texture;
+    
 }
 
 void Entity::SetWalkAnimationFrames(int startX, int startY, int endX){
@@ -45,11 +45,14 @@ Vector2 Entity::GetPosition(){
     return this->position;
 }
 
-void Entity::Move(std::list<Vector2> targetPositionList){
-    if(!isMoving){
+void Entity::Move(Vector2 targetPosition){
+
+    if(!isMoving){    
         this->isMoving = true;
-        this->moveList = targetPositionList;
-        this->moveTargetPosition = targetPositionList.front();
+        int entityX = int(this->position.x) / SPRITE_SIZE;
+        int entityY = int(this->position.y) / SPRITE_SIZE;
+        this->moveList = this->pathEngine.FindPath(Vector2{float(entityX), float(entityY)}, targetPosition);
+        this->moveTargetPosition = moveList.front();
     }
 }
 
@@ -75,9 +78,6 @@ void Entity::move(){
 
     if(GetTime()-this->lastUpdate >= MOVE_TIME_STEP){
 
-        // float newX = this->position.x + ANIMATION_MOVE_SPEED * direction.x;
-        // float newY = this->position.y + ANIMATION_MOVE_SPEED * direction.y;
-
         this->position.x += direction.x * MOVE_INCREMENT;
         this->position.y += direction.y * MOVE_INCREMENT;
         this->current_walk_frame += 1;
@@ -88,5 +88,4 @@ void Entity::move(){
 
 void Entity::Update(){
     move();
-    this->Draw();
 }
