@@ -13,7 +13,7 @@
 class PlayerEntity : public Entity {
 
     public:
-        PlayerEntity(int posX, int posY, Texture &texture, World *world);
+        PlayerEntity(int posX, int posY, int speed, Texture &texture, World *world);
         void Update();
         void Draw();
         

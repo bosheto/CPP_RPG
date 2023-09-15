@@ -1,6 +1,6 @@
 #include "player_entity.hpp"
 #include <iostream>
-PlayerEntity::PlayerEntity(int x, int y, Texture &texture, World *world) : Entity(0,1, x, y, 5, texture, world), pathEngine(world){
+PlayerEntity::PlayerEntity(int x, int y, int speed, Texture &texture, World *world) : Entity(0,1, x, y, speed, texture, world), pathEngine(world){
     Entity::SetWalkAnimationFrames(0,1,3);
     this->drawMoveGrid = false;
 }

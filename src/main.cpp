@@ -27,7 +27,7 @@ int main(int argc, char ** argv){
     world.SetTile(STONE_TILE, Vector2{1,4});
     world.SetTile(STONE_TILE, Vector2{1,5});
 
-    PlayerEntity player = PlayerEntity(0,0, *P_tex2d, &world);
+    PlayerEntity player = PlayerEntity(0,0, 10, *P_tex2d, &world);
 
     while(!WindowShouldClose()){
 
