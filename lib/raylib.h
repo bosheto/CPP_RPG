@@ -204,7 +204,23 @@
 typedef struct Vector2 {
     float x;                // Vector x component
     float y;                // Vector y component
+
+    // bool operator==(const Vector2& other) const {
+    //     return this->x == other.x && this->y == other.y;
+    // }
+
+    // struct Vector2Hash {
+    //     size_t operator()(const Vector2* v) const {
+    //         // Use a combination of the hashes of x and y
+
+    //     return std::hash<float>(v->x) ^ (std::hash<float>(v->y) << 1);
+    //     }
+    // };
+
 } Vector2;
+
+
+
 
 // Vector3, 3 components
 typedef struct Vector3 {

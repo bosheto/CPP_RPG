@@ -1,6 +1,6 @@
 #include "entity.hpp"
 
-Entity::Entity(int spriteX, int spriteY, int posX, int posY, Texture &texture, World *world) : pathEngine(world){
+Entity::Entity(int spriteX, int spriteY, int posX, int posY, int speed, Texture &texture, World *world){
     this->position.x = posX * SPRITE_SIZE;
     this->position.y = posY * SPRITE_SIZE;
     this->spriteRectangle.height = SPRITE_SIZE;
@@ -8,7 +8,16 @@ Entity::Entity(int spriteX, int spriteY, int posX, int posY, Texture &texture, W
     this->spriteRectangle.x = spriteX * SPRITE_SIZE;
     this->spriteRectangle.y = spriteY * SPRITE_SIZE;
     this->texture = texture;
-    
+    this->world = world;
+    this->speed = speed;
+}
+
+Texture Entity::GetTexture(){
+    return this->texture;
+}
+
+bool Entity::IsMoving(){
+    return this->isMoving;
 }
 
 void Entity::SetWalkAnimationFrames(int startX, int startY, int endX){
@@ -42,18 +51,27 @@ void Entity::Draw(){
 }
 
 Vector2 Entity::GetPosition(){
-    return this->position;
+    int posX = this->position.x / SPRITE_SIZE;
+    int posY = this->position.y / SPRITE_SIZE;
+    return Vector2{float(posX), float(posY)};
 }
 
-void Entity::Move(Vector2 targetPosition){
+World* Entity::GetWorld(){
+    return this->world;
+}
 
+void Entity::Move(std::list<Vector2> moves){
     if(!isMoving){    
         this->isMoving = true;
         int entityX = int(this->position.x) / SPRITE_SIZE;
         int entityY = int(this->position.y) / SPRITE_SIZE;
-        this->moveList = this->pathEngine.FindPath(Vector2{float(entityX), float(entityY)}, targetPosition);
+        this->moveList = moves;
         this->moveTargetPosition = moveList.front();
     }
+}
+
+int Entity::GetSpeed(){
+    return this->speed;
 }
 
 void Entity::move(){

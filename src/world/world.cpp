@@ -32,6 +32,19 @@ void World::SetTile(int id, Vector2 postion){
     this->tiles[postion.x][postion.y] = this->tileList[id].GetId();
 }
 
+
+
 Tile World::GetTile(Vector2 position){
-    return tileList[tiles[position.x][position.y]];
+    return this->tileList[tiles[position.x][position.y]];
+
+}
+
+bool World::isTileSolid(Vector2 position){
+    return tileList[tiles[position.x][position.y]].isSolid;
+}
+
+bool World::containsPosition(Vector2 position){
+    if(position.x < 0 || position.x > this->worldSizeX || position.y < 0 || position.y > this->worldSizeY)
+        return false;
+    return true;
 }

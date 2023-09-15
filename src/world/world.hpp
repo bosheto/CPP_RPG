@@ -8,7 +8,7 @@
 #define GRASS_TILE 0
 #define STONE_TILE 1
 
-class World{
+class   World{
     public:
         World(int sizeX, int sizeY, Texture2D &texture);
         Texture2D texture;
@@ -20,6 +20,8 @@ class World{
         
         Tile GetTile(Vector2 position);
         void SetTile(int id, Vector2 position);
+        bool isTileSolid(Vector2 position);
+        bool containsPosition(Vector2 position);
 
     private:
         int worldSizeX;

@@ -1,13 +1,8 @@
 #include "raylib.h"
 #include "raymath.h"
-#include "world/tile.hpp"
-#include "world/tiles/grassTile.hpp"
-#include "world/tiles/stoneTile.hpp"
 #include "world/world.hpp"
 
 #include "entity/player_entity.hpp"
-#include "pathfinding/aStar.hpp"
-
 
 #include <vector>
 #include <iostream>
@@ -24,7 +19,7 @@ int main(int argc, char ** argv){
     Texture2D* P_tex2d = &tex2d;
 
     World world = World(25,25, *P_tex2d);
-
+    World* pWorld = &world;
     world.SetTile(STONE_TILE, Vector2{1,0});
     world.SetTile(STONE_TILE, Vector2{1,1});
     world.SetTile(STONE_TILE, Vector2{1,2});
