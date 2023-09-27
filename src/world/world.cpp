@@ -1,5 +1,9 @@
 #include "world.hpp"
 
+World::World(std::string levelName){
+
+}
+
 World::World(int sizeX, int sizeY, Texture2D &texture){
     this->worldSizeX = sizeX;
     this->worldSizeY = sizeY;
@@ -47,4 +51,23 @@ bool World::containsPosition(Vector2 position){
     if(position.x < 0 || position.x > this->worldSizeX || position.y < 0 || position.y > this->worldSizeY)
         return false;
     return true;
+}
+
+void World::SaveLevel(std::string name){
+    std::string path = "levels/";
+    path.append(name).append(".json");
+
+    std::ofstream outFile(path);
+    nlohmann::json writeJson;
+    writeJson["world"] = this->tiles;
+    outFile << writeJson;
+    outFile.close();
+}
+
+void World::LoadLevel(std::string name){
+    std::string path = "levels/";
+    path.append(name).append(".json");
+    std::ifstream levelFile(path);
+    nlohmann::json json = nlohmann::json::parse(levelFile);
+    this->tiles =json["world"];
 }
